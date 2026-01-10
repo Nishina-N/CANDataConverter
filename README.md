@@ -6,6 +6,12 @@ A Python-based GUI tool for converting CAN (Controller Area Network) log files (
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python Version](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
 
+
+
+<img width="484" height="485" alt="CANDataConverter" src="https://github.com/user-attachments/assets/f2745b5e-3a61-4e88-895b-35a00bf1a443" />
+
+
+
 ## Features
 
 - **Supported Input Formats**: BLF (Binary Logging Format), ASC (ASCII format)
