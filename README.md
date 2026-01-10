@@ -1,0 +1,151 @@
+# CANdata2matcsv
+
+A Python-based GUI tool for converting CAN (Controller Area Network) log files (BLF, ASC) to CSV or MAT format using DBC database files.
+
+[![GitHub Sponsors](https://img.shields.io/github/sponsors/Nishina?style=social)](https://github.com/sponsors/Nishina)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python Version](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
+
+## Features
+
+- **Supported Input Formats**: BLF (Binary Logging Format), ASC (ASCII format)
+- **Supported Output Formats**: CSV, MAT (MATLAB format)
+- **Multiple Resampling Options**:
+  - 10ms period resampling
+  - 100ms period resampling
+  - 1 second period resampling
+  - Original sampling (individual time axis for each message)
+- **GUI Interface**: Easy-to-use tkinter-based graphical interface
+- **Progress Tracking**: Real-time progress bar during conversion
+- **DBC Support**: Uses CAN database files (.dbc) for signal decoding
+
+## Requirements
+
+- Python 3.7 or higher
+- See `requirements.txt` for detailed dependencies
+
+## Installation
+
+1. Clone this repository:
+```bash
+git clone https://github.com/yourusername/CANDataConverter.git
+cd CANDataConverter
+```
+
+2. Install required packages:
+```bash
+pip install -r requirements.txt
+```
+
+## Usage
+
+1. Run the main script:
+```bash
+python CANdata2matcsv.py
+```
+
+2. In the GUI:
+   - Select your CAN database file (.dbc)
+   - Select your CAN log file (.blf or .asc)
+   - Choose your preferred time axis resampling option
+   - Choose output format (CSV or MAT)
+   - Click "Convert!"
+
+3. The converted file will be saved in the same directory as your input log file with an appropriate suffix indicating the resampling method used.
+
+## Download Pre-built Binary
+
+Windows users can download the pre-built executable from the [Releases](https://github.com/yourusername/CANDataConverter/releases) page.
+
+## File Structure
+
+```
+CANDataConverter/
+├── CANdata2matcsv.py      # Main GUI application
+├── CDW.py                 # CAN Data Wrapper class
+├── tool/
+│   ├── CAN_Extractor.py   # CAN data extraction module
+│   └── CDW.py             # CAN Data Wrapper (copy for tool)
+├── ico/                   # Icon files (optional)
+├── LICENSE                # MIT License
+├── README.md              # This file
+└── requirements.txt       # Python dependencies
+```
+
+## Output Format
+
+### CSV Format
+- Resampled data: Single CSV with all signals aligned to common time axis
+- Original sampling: Transposed CSV with individual time axes per message
+
+### MAT Format
+- Structured MATLAB file with signal groups organized by CAN ID
+- Each CAN ID group contains its signals and time axis
+
+## Support This Project
+
+If this tool has been helpful for your work, please consider supporting its development:
+
+- ⭐ **Star this repository** - It helps others discover this tool
+- 💖 **[Become a GitHub Sponsor](https://github.com/sponsors/Nishina)** - Support ongoing development
+- 🐛 **Report bugs** - Help improve the tool for everyone
+- 🔧 **Contribute** - Pull requests are welcome!
+
+Your support helps maintain and improve this tool. Thank you! 🙏
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+### What this means:
+- ✅ **Free for commercial use** - Use it in your business without restrictions
+- ✅ **Free to modify** - Adapt it to your needs
+- ✅ **Free to distribute** - Share with colleagues and friends
+- ✅ **No warranty** - Provided as-is
+
+## Author
+
+**Nishina**
+- 🌐 Website: https://niseng.biz/software
+- 💌 Sponsor: [GitHub Sponsors](https://github.com/sponsors/Nishina)
+- 📧 Contact: [via website](https://niseng.biz/software)
+- © 2022-2026 Nishina
+
+## Acknowledgments
+
+- Uses `cantools` library for DBC parsing
+- Uses `python-can` library for CAN log file reading
+- CAN_Extractor module uses LGPL v3 license
+
+## Version History
+
+- **v2.01** (2026): GitHub release version - Replaced CAN_Extractor.exe with CAN_Extractor.py
+- **v2.00**: 64-bit version
+- **v1.05en**: English message support
+- **v1.05**: Performance improvements, individual time axis support
+- **v1.04**: Icon settings, UI refinements
+- **v1.03**: Bug fixes for certain DBC files
+- **v1.02**: Support for filenames containing dots
+- **v1.01**: Error message improvements
+- **v1.0**: Initial release
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+## Support & Issues
+
+- 📖 **Documentation**: This README
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/yourusername/CANDataConverter/issues)
+- 💬 **Questions**: [GitHub Discussions](https://github.com/yourusername/CANDataConverter/discussions)
+- 🌐 **Website**: https://niseng.biz/software
+
+---
+
+<div align="center">
+
+**If this tool saved you time, consider [sponsoring ❤️](https://github.com/sponsors/Nishina)**
+
+Made with ❤️ by Nishina
+
+</div>
