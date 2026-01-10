@@ -93,7 +93,7 @@ CANDataConverter/
 If this tool has been helpful for your work, please consider supporting its development:
 
 - ⭐ **Star this repository** - It helps others discover this tool
-- 💖 **[Become a GitHub Sponsor](https://github.com/sponsors/Nishina)** - Support ongoing development
+- 💖 **[Become a GitHub Sponsor](https://github.com/sponsors/Nishina-N)** - Support ongoing development
 - 🐛 **Report bugs** - Help improve the tool for everyone
 - 🔧 **Contribute** - Pull requests are welcome!
 
@@ -113,7 +113,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Nishina**
 - 🌐 Website: https://niseng.biz/software
-- 💌 Sponsor: [GitHub Sponsors](https://github.com/sponsors/Nishina)
+- 💌 Sponsor: [GitHub Sponsors](https://github.com/sponsors/Nishina-N)
 - 📧 Contact: [via website](https://niseng.biz/software)
 - © 2022-2026 Nishina
 
