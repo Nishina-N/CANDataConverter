@@ -2,7 +2,7 @@
 
 A Python-based GUI tool for converting CAN (Controller Area Network) log files (BLF, ASC) to CSV or MAT format using DBC database files.
 
-[![GitHub Sponsors](https://img.shields.io/github/sponsors/Nishina?style=social)](https://github.com/sponsors/Nishina-N)
+[![GitHub Sponsors](https://img.shields.io/github/sponsors/Nishina-N?style=social)](https://github.com/sponsors/Nishina-N)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python Version](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
 
