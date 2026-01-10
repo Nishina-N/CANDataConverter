@@ -2,7 +2,7 @@
 
 A Python-based GUI tool for converting CAN (Controller Area Network) log files (BLF, ASC) to CSV or MAT format using DBC database files.
 
-[![GitHub Sponsors](https://img.shields.io/github/sponsors/Nishina?style=social)](https://github.com/sponsors/Nishina)
+[![GitHub Sponsors](https://img.shields.io/github/sponsors/Nishina?style=social)](https://github.com/sponsors/Nishina-N)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python Version](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
 
@@ -61,7 +61,7 @@ python CANdata2matcsv.py
 
 ## Download Pre-built Binary
 
-Windows users can download the pre-built executable from the [Releases](https://github.com/yourusername/CANDataConverter/releases) page.
+Windows users can download the pre-built executable from the [Releases](https://github.com/Nishina-N/CANDataConverter/releases) page.
 
 ## File Structure
 
@@ -142,15 +142,15 @@ Contributions are welcome! Please feel free to submit a Pull Request. See [CONTR
 ## Support & Issues
 
 - 📖 **Documentation**: This README
-- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/yourusername/CANDataConverter/issues)
-- 💬 **Questions**: [GitHub Discussions](https://github.com/yourusername/CANDataConverter/discussions)
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/Nishina-N/CANDataConverter/issues)
+- 💬 **Questions**: [GitHub Discussions](https://github.com/Nishina-N/CANDataConverter/discussions)
 - 🌐 **Website**: https://niseng.biz/software
 
 ---
 
 <div align="center">
 
-**If this tool saved you time, consider [sponsoring ❤️](https://github.com/sponsors/Nishina)**
+**If this tool saved you time, consider [sponsoring ❤️](https://github.com/sponsors/Nishina-N)**
 
 Made with ❤️ by Nishina
 
