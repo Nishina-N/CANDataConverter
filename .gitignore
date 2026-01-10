@@ -25,9 +25,9 @@ wheels/
 *.egg
 MANIFEST
 
-# PyInstaller
-*.manifest
-*.spec
+# PyInstaller (ビルド成果物のみ除外、設定ファイルは含める)
+# *.spec は除外しない（ビルド設定として重要）
+# *.manifest は除外
 
 # Installer logs
 pip-log.txt
@@ -47,6 +47,8 @@ coverage.xml
 
 # Virtual environments
 venv/
+venv_build/
+venv_debug/
 ENV/
 env/
 .venv
@@ -59,7 +61,7 @@ env/
 *~
 .DS_Store
 
-# Project specific
+# Project specific - 実行ファイルと一時ファイル
 *.exe
 *.blf
 *.asc
@@ -70,9 +72,22 @@ env/
 Configuration.cfg
 CAN_Data.pkl
 
+# ビルド成果物
+build/
+dist/
+*.pyc
+
 # Nuitka build
 nuitka.txt
 
 # Temporary files
 *.tmp
 *.bak
+
+# サンプル/テストデータ（プロジェクト固有）
+sample_data/
+test_data/
+
+# OS固有
+Thumbs.db
+Desktop.ini
