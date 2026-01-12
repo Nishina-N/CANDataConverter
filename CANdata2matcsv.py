@@ -7,6 +7,7 @@
 # Licence:     Released under the MIT license.
 #              * see https://opensource.org/licenses/MIT
 
+# ver2.02 DBC/BLF整合性チェック機能とデコードエラースキップ機能を追加
 # ver2.01 GitHub公開版: CAN_Extractor.pyを直接呼び出すように変更
 # ver2.00 64bit版
 # ver1.05en メッセージを英語に変更
@@ -41,7 +42,7 @@ from tool import CAN_Extractor
 
 
 header_text = 'CAN data Converter'
-ver_text = 'ver2.01 (GitHub)    ©2021-2025 niseng.biz'
+ver_text = 'ver2.02 (GitHub)    ©2021-2026 niseng.biz'
 url = 'https://niseng.biz/software'
 fweb_open = False
 
@@ -85,9 +86,9 @@ def dataframe_converter(data_file_name, dbc_name):
         return
 
 
-    # information
-    canvas1.create_text(55,pos_y_button + 110, text="Converting ...",tag='S')
-    progressbar.configure(value=0)
+    # ===== DBC/BLF整合性チェック機能 =====
+    canvas1.create_text(85, pos_y_button + 110, text="Checking data integrity...", tag='CHECK')
+    progressbar.configure(value=10)
     progressbar.update()
 
 
@@ -157,6 +158,142 @@ def dataframe_converter(data_file_name, dbc_name):
     if os.path.exists(can_data_file_name):
         os.remove(can_data_file_name)
 
+    
+    
+    # DBCに定義されているIDのマップを作成（ID -> 期待データ長）
+    dbc_id_map = {}
+    for msg in dbc_can.messages:
+        dbc_id_map[msg.frame_id] = {
+            'name': msg.name,
+            'expected_length': msg.length
+        }
+    
+    # BLFファイルの実際のデータ長を収集
+    blf_id_samples = {}
+    sample_limit = 10000  # 最初の1万メッセージをサンプリング
+    
+    for i, msg in enumerate(can_data):
+        if i >= sample_limit:
+            break
+        
+        msg_id = msg.arbitration_id
+        data_len = len(msg.data)
+        
+        # このIDが初めて出現した場合
+        if msg_id not in blf_id_samples:
+            blf_id_samples[msg_id] = {
+                'min_length': data_len,
+                'max_length': data_len,
+                'count': 1
+            }
+        else:
+            blf_id_samples[msg_id]['min_length'] = min(blf_id_samples[msg_id]['min_length'], data_len)
+            blf_id_samples[msg_id]['max_length'] = max(blf_id_samples[msg_id]['max_length'], data_len)
+            blf_id_samples[msg_id]['count'] += 1
+    
+    # データ長の不一致を検出
+    mismatches = []
+    undefined_ids = []
+    variable_length_ids = []
+    
+    for msg_id, blf_info in blf_id_samples.items():
+        # 可変長データの検出
+        if blf_info['min_length'] != blf_info['max_length']:
+            variable_length_ids.append({
+                'id': msg_id,
+                'min': blf_info['min_length'],
+                'max': blf_info['max_length'],
+                'count': blf_info['count']
+            })
+        
+        # DBCに定義されているIDの場合
+        if msg_id in dbc_id_map:
+            expected_len = dbc_id_map[msg_id]['expected_length']
+            actual_len = blf_info['max_length']  # 最大長を使用
+            
+            if expected_len != actual_len:
+                mismatches.append({
+                    'id': msg_id,
+                    'name': dbc_id_map[msg_id]['name'],
+                    'expected': expected_len,
+                    'actual': actual_len,
+                    'count': blf_info['count']
+                })
+        else:
+            # DBCに未定義のID
+            undefined_ids.append({
+                'id': msg_id,
+                'length': blf_info['max_length'],
+                'count': blf_info['count']
+            })
+    
+    # 結果を表示
+    canvas1.delete('CHECK')
+    
+    warning_messages = []
+    
+    if mismatches:
+        msg_text = "Data size mismatch detected!\n\n"
+        msg_text += f"Found {len(mismatches)} message(s) with size mismatch:\n\n"
+        
+        show_rows = 7
+        for item in mismatches[:show_rows]:  # 最初のshow_rows件のみ表示
+            msg_text += f"ID {item['id']} (0x{item['id']:X}) - {item['name']}:　\n"
+            msg_text += f"  DBC expects {item['expected']} bytes, but BLF has {item['actual']} bytes　\n"
+            # msg_text += f"  ({item['count']} in sample)\n"
+        
+        if len(mismatches) > show_rows:
+            msg_text += f"... and {len(mismatches) - show_rows} more.\n\n"
+        
+        msg_text += "These messages will cause decode errors.\n"
+        msg_text += "Do you want to continue?\n\n"
+        msg_text += "(Errors will be skipped during conversion)"
+        
+        warning_messages.append(msg_text)
+    
+    if undefined_ids:
+        show_undefined = 7
+        count_in_dbc = len(dbc_id_map)
+        count_undefined = len(undefined_ids)
+        msg_text = f"\nInfo: Found {count_undefined} message ID(s) in BLF that are not defined in DBC.\n"
+        msg_text += f"(DBC defines {count_in_dbc} message IDs)\n\n"
+        msg_text += f"Top {show_undefined} undefined IDs:\n"
+        
+        # カウント順にソート
+        undefined_ids_sorted = sorted(undefined_ids, key=lambda x: x['count'], reverse=True)
+        for item in undefined_ids_sorted[:show_undefined ]:
+            msg_text += f"  ID {item['id']} (0x{item['id']:X}): {item['count']} messages, {item['length']} bytes\n"
+        
+        warning_messages.append(msg_text)
+    
+    if variable_length_ids:
+        msg_text = f"\nWarning: Found {len(variable_length_ids)} message ID(s) with variable data length:\n\n"
+        for item in variable_length_ids[:5]:
+            msg_text += f"  ID {item['id']} (0x{item['id']:X}): {item['min']}-{item['max']} bytes\n"
+        warning_messages.append(msg_text)
+    
+    # 警告がある場合は確認ダイアログを表示
+    if warning_messages:
+        full_message = "\n".join(warning_messages)
+        result = msgbox.askyesno('Data Integrity Check', full_message)
+        
+        if not result:
+            canvas1.create_text(55, pos_y_button + 110, text="Conversion cancelled.", tag='S')
+            time.sleep(1)
+            canvas1.delete('S')
+            progressbar.configure(value=0)
+            progressbar.update()
+            return
+    else:
+        msgbox.showinfo('Data Integrity Check', 'No data integrity issues found.\nAll message sizes match between DBC and BLF.')
+    # ===== 整合性チェック終了 =====
+
+
+    # information
+    canvas1.create_text(55,pos_y_button + 110, text="Converting ...",tag='S')
+    progressbar.configure(value=10)
+    progressbar.update()
+
 
 
     data_time_length = int((file_time_end - file_time_start)/sample_time_step ) #[per10msec]
@@ -191,10 +328,30 @@ def dataframe_converter(data_file_name, dbc_name):
     else:
         counter_gain = 200
 
+    # デコードエラーをカウント
+    decode_errors = {}
+    total_decode_errors = 0
+
     for msg in can_data:
         if msg.arbitration_id in s_target_ID_list:
             target_ID = msg.arbitration_id
-            df_msg = dbc_can.get_message_by_frame_id(target_ID).decode(msg.data,decode_choices=False, scaling=True)
+            
+            # デコード処理をtry-exceptで囲む
+            try:
+                df_msg = dbc_can.get_message_by_frame_id(target_ID).decode(msg.data,decode_choices=False, scaling=True)
+            except Exception as e:
+                # デコードエラーが発生した場合はスキップ
+                if target_ID not in decode_errors:
+                    decode_errors[target_ID] = {
+                        'count': 0,
+                        'error_type': str(type(e).__name__),
+                        'error_msg': str(e)
+                    }
+                decode_errors[target_ID]['count'] += 1
+                total_decode_errors += 1
+                counter += 1
+                continue
+            
             msg_time = int((msg.timestamp - file_time_start)*10000) #per0.1ms
 
             if first_frame_time > msg_time:
@@ -382,7 +539,32 @@ def dataframe_converter(data_file_name, dbc_name):
             else:
                 sio.savemat(write_file_name, write_dict)
 
-            msgbox.showinfo('information', 'done.' )
+            # デコードエラーのサマリーを表示
+            if decode_errors:
+                error_summary = f"Conversion completed with decode errors.\n\n"
+                error_summary += f"Total messages with decode errors: {total_decode_errors}\n"
+                error_summary += f"Number of IDs with errors: {len(decode_errors)}\n\n"
+                error_summary += "Error details:\n\n"
+                
+                # エラー件数の多い順にソート
+                sorted_errors = sorted(decode_errors.items(), key=lambda x: x[1]['count'], reverse=True)
+                
+                for target_id, error_info in sorted_errors[:10]:  # 最初の10件のみ表示
+                    error_summary += f"ID {target_id} (0x{target_id:X}): {error_info['count']} errors\n"
+                    # error_summary += f"  Error type: {error_info['error_type']}\n"
+                    # エラーメッセージが長い場合は省略
+                    error_msg = error_info['error_msg']
+                    if len(error_msg) > 60:
+                        error_msg = error_msg[:60] + "..."
+                    error_summary += f"  Message: {error_msg}\n\n"
+                
+                if len(decode_errors) > 10:
+                    error_summary += f"... and {len(decode_errors) - 10} more IDs with errors.\n\n"
+                
+                error_summary += "\nThese messages were skipped during conversion."
+                msgbox.showwarning('Conversion Completed with Errors', error_summary)
+            else:
+                msgbox.showinfo('information', 'done.' )
         except Exception as e:
             if i > 0:
                 time.sleep(2)

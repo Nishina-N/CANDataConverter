@@ -1,5 +1,5 @@
 ==========================================================================
-CANDataConverter v2.01 - Windows Binary Distribution
+CANDataConverter v2.02 - Windows Binary Distribution
 ==========================================================================
 
 This is a pre-built Windows executable version of CANDataConverter.
@@ -37,6 +37,14 @@ This software consists of two components with different licenses:
 4. Choose output format and time axis option
 5. Click "Convert!"
 
+## New in v2.02
+
+- **Data Integrity Check**: Validates data size compatibility between DBC and BLF files before conversion
+- **Decode Error Handling**: Automatically skips problematic messages and continues processing
+- **Error Summary**: Displays detailed report of any decode errors after conversion
+- **User Confirmation**: Prompts for confirmation when integrity issues are detected
+- **Improved UI**: Enhanced progress indicators and clearer warning messages
+
 ## System Requirements
 
 - Windows 10/11 (64-bit)
@@ -50,7 +58,7 @@ For issues, questions, or feature requests:
 
 If this tool has been helpful, please consider:
 - Star the GitHub repository
-- Become a GitHub Sponsor: https://github.com/sponsors/Nishina
+- Become a GitHub Sponsor: https://github.com/sponsors/Nishina-N
 
 ## Copyright
 

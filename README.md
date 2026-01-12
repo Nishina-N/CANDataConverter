@@ -128,6 +128,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Version History
 
+- **v2.02** (2026): Added DBC/BLF integrity check and decode error handling
+  - **Data Integrity Check**: Pre-conversion validation that detects data size mismatches between DBC definitions and actual BLF data
+  - **Decode Error Skip**: Automatically skips messages that cannot be decoded and continues processing valid data
+  - **Error Summary**: Displays detailed error report at the end of conversion, showing which message IDs had decode errors and how many
+  - **User Confirmation**: Asks for user confirmation before processing when integrity issues are detected
+  - **Improved User Experience**: Enhanced progress indicators and cleaner warning messages
 - **v2.01** (2026): GitHub release version - Replaced CAN_Extractor.exe with CAN_Extractor.py
 - **v2.00**: 64-bit version
 - **v1.05en**: English message support
