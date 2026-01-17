@@ -76,8 +76,8 @@ if exist dist\CANDataConverter.exe (
     
     REM Create ZIP file using PowerShell
     echo Creating ZIP file...
-    powershell -Command "Compress-Archive -Path 'dist\CANDataConverter_Package\*' -DestinationPath 'dist\CANDataConverter_v2.01_win64.zip' -Force"
-    echo ZIP created: dist\CANDataConverter_v2.01_win64.zip
+    powershell -Command "Compress-Archive -Path 'dist\CANDataConverter_Package\*' -DestinationPath 'dist\CANDataConverter_v2.02_win64.zip' -Force"
+    echo ZIP created: dist\CANDataConverter_v2.02_win64.zip
     echo.
 ) else (
     echo.
