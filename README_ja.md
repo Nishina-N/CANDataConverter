@@ -37,7 +37,7 @@ CAN（Controller Area Network）ログファイル（BLF、ASC）をDBCデータ
 
 1. このリポジトリをクローン:
 ```bash
-git clone https://github.com/yourusername/CANDataConverter.git
+git clone https://github.com/Nishina-N/CANDataConverter.git
 cd CANDataConverter
 ```
 
@@ -116,7 +116,7 @@ CANDataConverter/
 ## 作者
 
 **Nishina**
-- 🌐 ウェブサイト: https://niseng.biz/software
+- 🌐 ウェブサイト: https://niseng.biz/software/#candataconverter
 - 💌 スポンサー: [GitHub Sponsors](https://github.com/sponsors/Nishina-N)
 - © 2022-2026 Nishina
 

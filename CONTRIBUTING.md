@@ -49,7 +49,7 @@ Enhancement suggestions are welcome! Please create an issue with:
 
 1. Clone your fork:
 ```bash
-git clone https://github.com/yourusername/CANdata2matcsv.git
+git clone https://github.com/Nishina-N/CANDataConverter.git
 cd CANdata2matcsv
 ```
 

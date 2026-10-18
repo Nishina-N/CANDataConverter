@@ -54,7 +54,7 @@ https://github.com/Nishina-N/CANDataConverter
 
 問題、質問、機能リクエストについては：
 - GitHub Issues: https://github.com/Nishina-N/CANDataConverter/issues
-- ウェブサイト: https://niseng.biz/software
+- ウェブサイト: https://niseng.biz/software/#candataconverter
 
 このツールが役に立った場合は、ぜひご検討ください：
 - GitHubリポジトリにスターを付ける

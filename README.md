@@ -37,7 +37,7 @@ A Python-based GUI tool for converting CAN (Controller Area Network) log files (
 
 1. Clone this repository:
 ```bash
-git clone https://github.com/yourusername/CANDataConverter.git
+git clone https://github.com/Nishina-N/CANDataConverter.git
 cd CANDataConverter
 ```
 
@@ -116,7 +116,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Author
 
 **Nishina**
-- 🌐 Website: https://niseng.biz/software
+- 🌐 Website: https://niseng.biz/software/#candataconverter
+- 📝 Article: [CANDataConverter on niseng.biz](https://niseng.biz/software/app-can-data-converter-asc-blf-to-csv-mat-en/)
 - 💌 Sponsor: [GitHub Sponsors](https://github.com/sponsors/Nishina-N)
 - © 2022-2026 Nishina
 

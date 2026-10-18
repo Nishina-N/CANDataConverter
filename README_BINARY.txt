@@ -53,8 +53,8 @@ This software consists of two components with different licenses:
 ## Support
 
 For issues, questions, or feature requests:
-- GitHub Issues: https://github.com/yourusername/CANDataConverter/issues
-- Website: https://niseng.biz/software
+- GitHub Issues: https://github.com/Nishina-N/CANDataConverter/issues
+- Website: https://niseng.biz/software/#candataconverter
 
 If this tool has been helpful, please consider:
 - Star the GitHub repository
